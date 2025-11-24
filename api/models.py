@@ -4,7 +4,7 @@ from django.contrib.auth.hashers import make_password, check_password
 
 class Member(models.Model):
     username = models.CharField(max_length=150, unique=True)
-    password = models.CharField(max_length=128)
+    password = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -49,6 +49,10 @@ class Message(models.Model):
     class Meta:
         db_table = 'messages'
         ordering = ['created_at']
+        indexes = [
+            models.Index(fields=['created_at']),
+            models.Index(fields=['member', 'created_at']),
+        ]
 
     def __str__(self):
         return f"{self.member.username}: {self.text[:50]}"
