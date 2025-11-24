@@ -1,0 +1,50 @@
+get:
+  summary: Get all messages
+  description: Returns list of all messages with author information, sorted by creation date
+  security:
+    - TokenAuth: []
+  responses:
+    '200':
+      description: List of messages
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '../schemas/message.yml'
+    '401':
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/error.yml'
+post:
+  summary: Create a new message
+  description: Creates new message from current user
+  security:
+    - TokenAuth: []
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '../schemas/message_create.yml'
+  responses:
+    '201':
+      description: Message created successfully
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/message.yml'
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/error.yml'
+    '401':
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/error.yml'

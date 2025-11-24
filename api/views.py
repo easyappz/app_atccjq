@@ -5,7 +5,7 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from django.contrib.auth.models import User, Token
 from django.utils import timezone
 from drf_spectacular.utils import extend_schema
-from api.models import Member
+from api.models import Member, Message
 from api.serializers import (
     MessageSerializer,
     MemberSerializer,
@@ -147,3 +147,33 @@ class ProfileView(APIView):
         member = request.user
         serializer = MemberSerializer(member)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class MessagesView(APIView):
+    """
+    Get all messages or create a new message.
+    """
+    authentication_classes = [MemberTokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    @extend_schema(
+        responses={200: MessageSerializer(many=True)},
+        description="Get all messages with author information, sorted by creation date"
+    )
+    def get(self, request):
+        messages = Message.objects.select_related('member').all().order_by('created_at')
+        serializer = MessageSerializer(messages, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    @extend_schema(
+        request=MessageSerializer,
+        responses={201: MessageSerializer},
+        description="Create a new message from current user"
+    )
+    def post(self, request):
+        serializer = MessageSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save(member=request.user)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

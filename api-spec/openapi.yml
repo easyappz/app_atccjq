@@ -5,7 +5,7 @@ info:
   description: API for group chat application with registration and authentication
 servers:
   - url: /api
-    description: API server
+    description: API Server
 paths:
   /register/:
     $ref: './paths/auth.yml#/register'
@@ -13,16 +13,22 @@ paths:
     $ref: './paths/auth.yml#/login'
   /profile/:
     $ref: './paths/auth.yml#/profile'
+  /messages/:
+    $ref: './paths/messages.yml'
 components:
   schemas:
     Member:
       $ref: './schemas/member.yml'
+    AuthResponse:
+      $ref: './schemas/auth_response.yml'
     RegisterRequest:
       $ref: './schemas/register_request.yml'
     LoginRequest:
       $ref: './schemas/login_request.yml'
-    AuthResponse:
-      $ref: './schemas/auth_response.yml'
+    Message:
+      $ref: './schemas/message.yml'
+    MessageCreate:
+      $ref: './schemas/message_create.yml'
     Error:
       $ref: './schemas/error.yml'
   securitySchemes:
@@ -30,4 +36,4 @@ components:
       type: apiKey
       in: header
       name: Authorization
-      description: 'Token-based authentication. Use format: Token <your-token>'
+      description: 'Token-based authentication. Format: Token <token>'
