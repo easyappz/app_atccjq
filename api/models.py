@@ -39,3 +39,16 @@ class Member(models.Model):
     def has_module_perms(self, app_label):
         """Check if member has permissions to view the app"""
         return True
+
+
+class Message(models.Model):
+    member = models.ForeignKey(Member, on_delete=models.CASCADE, related_name='messages')
+    text = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = 'messages'
+        ordering = ['created_at']
+
+    def __str__(self):
+        return f"{self.member.username}: {self.text[:50]}"

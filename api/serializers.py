@@ -1,10 +1,14 @@
 from rest_framework import serializers
-from api.models import Member
+from api.models import Member, Message
 
 
-class MessageSerializer(serializers.Serializer):
-    message = serializers.CharField(max_length=200)
-    timestamp = serializers.DateTimeField(read_only=True)
+class MessageSerializer(serializers.ModelSerializer):
+    username = serializers.CharField(source='member.username', read_only=True)
+
+    class Meta:
+        model = Message
+        fields = ['id', 'member', 'username', 'text', 'created_at']
+        read_only_fields = ['id', 'created_at', 'username']
 
 
 class MemberSerializer(serializers.ModelSerializer):
