@@ -1,4 +1,4 @@
-register:
+/api/register/:
   post:
     summary: Register a new user
     tags:
@@ -17,23 +17,13 @@ register:
             schema:
               $ref: '../schemas/auth_response.yml'
       '400':
-        description: Bad request - validation error
+        description: Bad request
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                username:
-                  type: array
-                  items:
-                    type: string
-                  example: ["Username already exists"]
-                password:
-                  type: array
-                  items:
-                    type: string
+              $ref: '../schemas/error.yml'
 
-login:
+/api/login/:
   post:
     summary: Login user
     tags:
@@ -46,40 +36,40 @@ login:
             $ref: '../schemas/login_request.yml'
     responses:
       '200':
-        description: Successfully logged in
+        description: User successfully logged in
         content:
           application/json:
             schema:
               $ref: '../schemas/auth_response.yml'
       '401':
-        description: Unauthorized - invalid credentials
+        description: Unauthorized - Invalid credentials
         content:
           application/json:
             schema:
               $ref: '../schemas/error.yml'
       '400':
-        description: Bad request - validation error
+        description: Bad request
         content:
           application/json:
             schema:
-              type: object
+              $ref: '../schemas/error.yml'
 
-profile:
+/api/profile/:
   get:
     summary: Get current user profile
     tags:
-      - User
+      - Authentication
     security:
       - TokenAuth: []
     responses:
       '200':
-        description: User profile data
+        description: User profile retrieved successfully
         content:
           application/json:
             schema:
               $ref: '../schemas/member.yml'
       '401':
-        description: Unauthorized - invalid or missing token
+        description: Unauthorized - Invalid or missing token
         content:
           application/json:
             schema:

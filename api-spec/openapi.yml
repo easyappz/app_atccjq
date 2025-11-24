@@ -2,31 +2,31 @@ openapi: 3.1.0
 info:
   title: Group Chat API
   version: 1.0.0
-  description: API for group chat application with registration and authentication
+  description: API for group chat application with user registration and authentication
 servers:
-  - url: /api
-    description: API Server
+  - url: http://localhost:8000
+    description: Development server
 paths:
-  /register/:
-    $ref: './paths/auth.yml#/register'
-  /login/:
-    $ref: './paths/auth.yml#/login'
-  /profile/:
-    $ref: './paths/auth.yml#/profile'
-  /messages/:
-    $ref: './paths/messages.yml'
+  /api/register/:
+    $ref: './paths/auth.yml#/~1api~1register~1'
+  /api/login/:
+    $ref: './paths/auth.yml#/~1api~1login~1'
+  /api/profile/:
+    $ref: './paths/auth.yml#/~1api~1profile~1'
+  /api/messages/:
+    $ref: './paths/messages.yml#/~1api~1messages~1'
 components:
   schemas:
     Member:
       $ref: './schemas/member.yml'
-    AuthResponse:
-      $ref: './schemas/auth_response.yml'
+    Message:
+      $ref: './schemas/message.yml'
     RegisterRequest:
       $ref: './schemas/register_request.yml'
     LoginRequest:
       $ref: './schemas/login_request.yml'
-    Message:
-      $ref: './schemas/message.yml'
+    AuthResponse:
+      $ref: './schemas/auth_response.yml'
     MessageCreate:
       $ref: './schemas/message_create.yml'
     Error:
@@ -36,4 +36,4 @@ components:
       type: apiKey
       in: header
       name: Authorization
-      description: 'Token-based authentication. Format: Token <token>'
+      description: Token-based authentication. Use format 'Token <your-token>'

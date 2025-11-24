@@ -9,6 +9,5 @@ properties:
     example: "john_doe"
   password:
     type: string
-    format: password
     maxLength: 128
-    example: "secretpassword123"
+    example: "password123"

@@ -10,7 +10,6 @@ properties:
     example: 1
   username:
     type: string
-    maxLength: 150
     example: "john_doe"
   created_at:
     type: string

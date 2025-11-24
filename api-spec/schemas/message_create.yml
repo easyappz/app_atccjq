@@ -4,4 +4,4 @@ required:
 properties:
   text:
     type: string
-    example: "Hello everyone!"
+    example: "Hello, this is my message!"
