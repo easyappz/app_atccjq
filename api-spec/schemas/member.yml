@@ -1,0 +1,18 @@
+type: object
+required:
+  - id
+  - username
+  - created_at
+properties:
+  id:
+    type: integer
+    format: int64
+    example: 1
+  username:
+    type: string
+    maxLength: 150
+    example: "john_doe"
+  created_at:
+    type: string
+    format: date-time
+    example: "2025-11-24T11:07:01.330Z"
