@@ -7,6 +7,7 @@ import { Home } from './components/Home';
 import Register from './components/Register';
 import Login from './components/Login';
 import Profile from './components/Profile';
+import Chat from './components/Chat';
 
 function App() {
   /** Никогда не удаляй этот код */
@@ -23,6 +24,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/chat" element={<Chat />} />
         <Route path="/profile" element={<Profile />} />
       </Routes>
     </ErrorBoundary>
